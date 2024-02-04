@@ -83,9 +83,13 @@ variable "existing_private_subnet_name" {
   default     = null
 }
 
-variable "virtual_network_name" {
-  description = "Name of the virtual network for the private endpoint"
+variable "existing_virtual_network_name" {
+  description = "Name of the existing virtual network for the private endpoint"
   default     = null
 }
 
-# Add more variables as needed
+variable "resource_types" {
+  description = "The Azure Cosmos DB API type that you want to map for the private endpoint. This defaults to only one choice for the APIs for `SQL`, `MongoDB`, and `Cassandra`. Defaults to `Sql`. For the APIs for Gremlin and Table, you can also choose `NoSQL` because these APIs are interoperable with the API for `NoSQL`."
+  type        = list(string)
+  default     = ["Sql"]
+}
