@@ -75,7 +75,7 @@ resource "azurerm_cosmosdb_account" "db" {
     }
   }
 
-  default_identity_type = var.default_identity_type == "FirstPartyIdentity" ? "FirstPartyIdentity" : join("=", ["UserAssignedIdentity", one(var.existing_principal_ids)])
+  default_identity_type = var.default_identity_type == "SystemAssignedIdentity" ? "SystemAssignedIdentity" : var.default_identity_type == "UserAssignedIdentity" ? join("=", ["UserAssignedIdentity", one(var.existing_principal_ids)]) : "FirstPartyIdentity"
 
   dynamic "identity" {
     for_each = var.identity_type[*]
