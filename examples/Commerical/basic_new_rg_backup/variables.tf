@@ -11,7 +11,7 @@ variable "deploy_environment" {
 }
 
 variable "environment" {
-  description = "Name of the environnement"
+  description = "The Terraform backend environment e.g. public or usgovernment"
   type        = string
   default     = "public"
 }
@@ -19,7 +19,7 @@ variable "environment" {
 variable "workload_name" {
   description = "Name of the workload_name"
   type        = string
-  default     = "example"
+  default     = "db"
 }
 
 variable "org_name" {

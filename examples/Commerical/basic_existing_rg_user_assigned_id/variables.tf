@@ -1,7 +1,7 @@
 variable "location" {
   description = "Azure region in which instance will be hosted"
   type        = string
-  default     = "usgovvirginia"
+  default     = "eastus"
 }
 
 variable "deploy_environment" {
@@ -11,15 +11,15 @@ variable "deploy_environment" {
 }
 
 variable "environment" {
-  description = "Name of the environnement"
+  description = "The Terraform backend environment e.g. public or usgovernment"
   type        = string
-  default     = "usgovernment"
+  default     = "public"
 }
 
 variable "workload_name" {
   description = "Name of the workload_name"
   type        = string
-  default     = "example"
+  default     = "db"
 }
 
 variable "org_name" {
