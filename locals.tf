@@ -1,8 +1,11 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
 
-# remove file if not needed
-
 locals {
-  
+  default_failover_locations = {
+    default = {
+      location       = local.location
+      zone_redundant = var.enable_zone_redundancy
+    }
+  }
 }

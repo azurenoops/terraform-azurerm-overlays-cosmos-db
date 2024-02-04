@@ -28,3 +28,9 @@ variable "custom_resource_group_name" {
   type        = string
   default     = null
 }
+
+variable "custom_cosmosdb_name" {
+  description = "The name of the custom cosmosdb to create. If not set, the name will be generated using the `org_name`, `workload_name`, `deploy_environment` and `environment` variables."
+  type        = string
+  default     = null  
+}
