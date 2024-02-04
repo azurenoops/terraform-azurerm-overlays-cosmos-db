@@ -43,7 +43,7 @@ data "azurerm_private_endpoint_connection" "pip" {
   count               = var.enable_private_endpoint ? 1 : 0
   name                = azurerm_private_endpoint.pep.0.name
   resource_group_name = local.resource_group_name
-  depends_on          = [azurerm_key_vault.keyvault]
+  depends_on          = [azurerm_cosmosdb_account.db]
 }
 
 resource "azurerm_private_dns_zone" "dns_zone" {
