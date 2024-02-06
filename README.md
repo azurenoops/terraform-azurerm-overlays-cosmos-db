@@ -76,8 +76,7 @@ More details are available in the [CONTRIBUTING.md](./CONTRIBUTING.md#pull-reque
 
 ## Resources Supported
 
-- [Azure Cosmos Db]()
--
+- [Azure Cosmos Db](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_account)
 
 ## Module Usage
 
@@ -91,7 +90,7 @@ module "overlays-cosmos-db" {
   source  = "azurenoops/overlays-cosmos-db/azurerm"
   version = "x.x.x"
   
-  create_app_config_resource_group = true
+  create_cosmos_db_resource_group  = true
   location                         = "eastus"
   deploy_environment               = "dev"
   org_name                         = "anoa"
@@ -99,6 +98,12 @@ module "overlays-cosmos-db" {
   workload_name                    = "cosmos-db"  
 }
 ```
+
+## Create resource group
+
+By default, this module will create a resource group by setting the argument to `create_cosmos_db_resource_group = true`. To use a custom name of the resource group use argument `custom_resource_group_name` located in `variables.naming.tf`. If you want to use an existing resource group, specify the existing resource group name, and set the argument to `create_cosmos_db_resource_group = false` and argument `existing_resource_group_name`.
+
+> **Note:** *If you are using an existing resource group, then this module uses the same resource group location to create all resources in this module.*
 
 ## Configuing Cosmos Db with Backup
 
@@ -111,7 +116,7 @@ module "overlays-cosmos-db" {
   source  = "azurenoops/overlays-cosmos-db/azurerm"
   version = "x.x.x"
   
-  create_app_config_resource_group = true
+  create_cosmos_db_resource_group  = true
   location                         = "eastus"
   deploy_environment               = "dev"
   org_name                         = "anoa"
@@ -137,7 +142,7 @@ module "overlays-cosmos-db" {
   source  = "azurenoops/overlays-cosmos-db/azurerm"
   version = "x.x.x"
   
-  create_app_config_resource_group = true
+  create_cosmos_db_resource_group  = true
   location                         = "eastus"
   deploy_environment               = "dev"
   org_name                         = "anoa"
@@ -161,7 +166,7 @@ module "overlays-cosmos-db" {
   source  = "azurenoops/overlays-cosmos-db/azurerm"
   version = "x.x.x"
   
-  create_app_config_resource_group = true
+  create_cosmos_db_resource_group  = true
   location                         = "eastus"
   deploy_environment               = "dev"
   org_name                         = "anoa"
@@ -193,7 +198,7 @@ module "overlays-cosmos-db" {
   source  = "azurenoops/overlays-cosmos-db/azurerm"
   version = "x.x.x"
   
-  create_app_config_resource_group = true
+  create_cosmos_db_resource_group  = true
   location                         = "eastus"
   deploy_environment               = "dev"
   org_name                         = "anoa"
@@ -216,7 +221,7 @@ module "overlays-cosmos-db" {
   source  = "azurenoops/overlays-cosmos-db/azurerm"
   version = "x.x.x"
   
-  create_app_config_resource_group = true
+  create_cosmos_db_resource_group  = true
   location                         = "eastus"
   deploy_environment               = "dev"
   org_name                         = "anoa"
@@ -244,7 +249,7 @@ module "overlays-cosmos-db" {
   source  = "azurenoops/overlays-cosmos-db/azurerm"
   version = "x.x.x"
   
-  create_app_config_resource_group = true
+  create_cosmos_db_resource_group  = true
   location                         = "eastus"
   deploy_environment               = "dev"
   org_name                         = "anoa"
@@ -268,7 +273,7 @@ module "overlays-cosmos-db" {
   source  = "azurenoops/overlays-cosmos-db/azurerm"
   version = "x.x.x"
   
-  create_app_config_resource_group = true
+  create_cosmos_db_resource_group  = true
   location                         = "eastus"
   deploy_environment               = "dev"
   org_name                         = "anoa"
@@ -293,7 +298,7 @@ module "overlays-cosmos-db" {
   source  = "azurenoops/overlays-cosmos-db/azurerm"
   version = "x.x.x"
   
-  create_app_config_resource_group = true
+  create_cosmos_db_resource_group  = true
   location                         = "eastus"
   deploy_environment               = "dev"
   org_name                         = "anoa"
