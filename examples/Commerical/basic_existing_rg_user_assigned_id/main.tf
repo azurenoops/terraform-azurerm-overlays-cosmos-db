@@ -7,12 +7,12 @@ module "mod_cosmos_db" {
   source = "../../.."
 
   # Resource Group, location, VNet and Subnet details
-  create_cosmos_db_resource_group = true
-  location                        = var.location
-  deploy_environment              = var.deploy_environment
-  environment                     = var.environment
-  org_name                        = var.org_name
-  workload_name                   = var.workload_name
+  existing_resource_group_name = azurerm_resource_group.cosmos-db-rg.name
+  location                     = var.location
+  deploy_environment           = var.deploy_environment
+  environment                  = var.environment
+  org_name                     = var.org_name
+  workload_name                = var.workload_name
 
   # Cosmos DB details
   offer_type = "Standard"
@@ -21,7 +21,7 @@ module "mod_cosmos_db" {
   capabilities = ["EnableMongo"]
 
   # Consistency policy
-  consistency_policy_level                   = "Strong"
+  consistency_policy_level = "Strong"
 
   # Identity
   default_identity_type  = "UserAssignedIdentity"
