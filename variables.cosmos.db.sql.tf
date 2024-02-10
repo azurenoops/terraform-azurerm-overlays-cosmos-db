@@ -11,11 +11,6 @@ variable "create_cosmosdb_table" {
   default     = false
 }
 
-variable "cosmosdb_table_name" {
-  description = "Specifies the name of the Cosmos DB Table"
-  default     = null
-}
-
 variable "cosmosdb_table_throughput" {
   description = "The throughput of Table (RU/s). Must be set in increments of `100`. The minimum value is `400`. This must be set upon database creation otherwise it cannot be updated without a manual terraform destroy-apply."
   default     = null
