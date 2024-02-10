@@ -83,7 +83,7 @@ variable "existing_private_subnet_name" {
   default     = null
 }
 
-variable "existing_virtual_network_name" {
+variable "existing_private_virtual_network_name" {
   description = "Name of the existing virtual network for the private endpoint"
   default     = null
 }

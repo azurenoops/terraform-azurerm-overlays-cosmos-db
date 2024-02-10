@@ -6,62 +6,81 @@
 ###############
 
 output "cosmosdb_id" {
-  description = "The CosmosDB Account ID."
-  value       = azurerm_cosmosdb_account.db.id
-}
-
-output "cosmosdb_name" {
-  description = "The CosmosDB Account Name."
-  value       = azurerm_cosmosdb_account.db.name
+  description = "The CosmosDB Account resource ID."
+  value       = element(concat([for n in azurerm_cosmosdb_account.db : n.id], [""]), 0)
 }
 
 output "cosmosdb_endpoint" {
   description = "The endpoint used to connect to the CosmosDB account."
-  value       = azurerm_cosmosdb_account.db.endpoint
+  value       = element(concat([for n in azurerm_cosmosdb_account.db : n.endpoint], [""]), 0)
 }
 
 output "cosmosdb_read_endpoints" {
-  description = "A list of read endpoints available for this CosmosDB account."
-  value       = azurerm_cosmosdb_account.db.read_endpoints
+  description = "A list of read endpoints available for this CosmosDB account"
+  value       = [for n in azurerm_cosmosdb_account.db : n.read_endpoints]
 }
 
 output "cosmosdb_write_endpoints" {
   description = "A list of write endpoints available for this CosmosDB account."
-  value       = azurerm_cosmosdb_account.db.write_endpoints
+  value       = [for n in azurerm_cosmosdb_account.db : n.write_endpoints]
 }
 
-output "cosmosdb_primary_master_key" {
-  description = "The Primary master key for the CosmosDB Account."
-  value       = azurerm_cosmosdb_account.db.primary_key
+output "cosmosdb_primary_key" {
+  description = "The Primary master key for the CosmosDB Account"
+  value       = element(concat([for n in azurerm_cosmosdb_account.db : n.primary_key], [""]), 0)
   sensitive   = true
 }
 
-output "cosmosdb_secondary_master_key" {
-  description = " The Secondary master key for the CosmosDB Account."
-  value       = azurerm_cosmosdb_account.db.secondary_key
+output "cosmosdb_secondary_key" {
+  description = "The Secondary master key for the CosmosDB Account."
+  value       = element(concat([for n in azurerm_cosmosdb_account.db : n.secondary_key], [""]), 0)
   sensitive   = true
 }
 
-output "cosmosdb_primary_readonly_master_key" {
-  description = "The Primary read-only master Key for the CosmosDB Account."
-  value       = azurerm_cosmosdb_account.db.primary_readonly_key
+output "cosmosdb_primary_readonly_key" {
+  description = "The Primary read-only master Key for the CosmosDB Account"
+  value       = element(concat([for n in azurerm_cosmosdb_account.db : n.primary_readonly_key], [""]), 0)
   sensitive   = true
 }
 
-output "cosmosdb_secondary_readonly_master_key" {
-  description = "The Secondary read-only master key for the CosmosDB Account."
-  value       = azurerm_cosmosdb_account.db.secondary_readonly_key
+output "cosmosdb_secondary_readonly_key" {
+  description = "The Secondary read-only master key for the CosmosDB Account"
+  value       = element(concat([for n in azurerm_cosmosdb_account.db : n.secondary_readonly_key], [""]), 0)
   sensitive   = true
 }
 
 output "cosmosdb_connection_strings" {
-  description = "A list of connection strings available for this CosmosDB account."
-  value       = azurerm_cosmosdb_account.db.connection_strings
+  description = "A list of connection strings available for this CosmosDB account"
+  value       = [for n in azurerm_cosmosdb_account.db : n.connection_strings]
   sensitive   = true
 }
 
-output "identity" {
-  description = "Identity block with principal ID"
-  value       = azurerm_cosmosdb_account.db.identity
+output "cosmosdb_private_endpoint" {
+  description = "id of the Cosmosdb Account Private Endpoint"
+  value       = var.enable_private_endpoint ? element(concat(azurerm_private_endpoint.pep.*.id, [""]), 0) : null
 }
 
+output "cosmosdb_private_dns_zone_domain" {
+  description = "DNS zone name of Cosmosdb Account Private endpoints dns name records"
+  value       = var.existing_private_dns_zone == null && var.enable_private_endpoint ? element(concat(azurerm_private_dns_zone.dns_zone.*.name, [""]), 0) : var.existing_private_dns_zone
+}
+
+output "cosmosdb_private_endpoint_ip" {
+  description = "CosmosDB account private endpoint IPv4 Addresses"
+  value       = var.enable_private_endpoint ? element(concat(data.azurerm_private_endpoint_connection.pip.*.private_service_connection.0.private_ip_address, [""]), 0) : null
+}
+
+output "cosmosdb_private_endpoint_fqdn" {
+  description = "CosmosDB account server private endpoint FQDN Addresses"
+  value       = var.enable_private_endpoint ? element(concat(azurerm_private_dns_a_record.a_rec.*.fqdn, [""]), 0) : null
+}
+
+/* output "cosmosdb_table_id" {
+  description = "The resource ID of the CosmosDB Table"
+  value       = var.create_cosmosdb_table ? azurerm_cosmosdb_table.main.0.id : null
+}
+
+output "cosmosdb_sql_database_id" {
+  description = "The resource ID of the CosmosDB SQL Database."
+  value       = var.create_cosmosdb_sql_database ? azurerm_cosmosdb_sql_database.main.0.id : null
+} */
