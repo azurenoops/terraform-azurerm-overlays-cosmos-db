@@ -11,7 +11,6 @@ variable "cosmosdb_account" {
     offer_type                            = optional(string, "Standard")
     kind                                  = optional(string, "GlobalDocumentDB")
     enable_free_tier                      = optional(bool, false)
-    analytical_storage_enabled            = optional(bool, false)
     enable_automatic_failover             = optional(bool, true)
     public_network_access_enabled         = optional(bool, true)
     is_virtual_network_filter_enabled     = optional(bool, false)
@@ -72,5 +71,5 @@ variable "cosmosdb_account" {
 variable "enable_advanced_threat_protection" {
   description = "Enables Advanced Threat Protection for Azure Cosmos DB. Default is false."
   type        = bool
-  default     = false  
+  default     = false
 }
