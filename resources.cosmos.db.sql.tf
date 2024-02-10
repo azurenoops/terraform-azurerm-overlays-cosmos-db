@@ -5,7 +5,7 @@
 #  CosmosDB SQL Database API - Default is "false" 
 #---------------------------------------------------------
 resource "azurerm_cosmosdb_sql_database" "sql" {
-  count               = var.create_cosmosdb_sql_database || var.create_cosmosdb_sql_container ? 1 : 0
+  for_each            = tomap(var.create_cosmosdb_sql_database || var.create_cosmosdb_sql_container ? var.cosmosdb_account : {})
   name                = coalesce(var.custom_cosmosdb_sql_database_name, format("%s-sql-database", element([for n in azurerm_cosmosdb_account.db : n.name], 0)))
   resource_group_name = local.resource_group_name
   account_name        = element([for n in azurerm_cosmosdb_account.db : n.name], 0)
@@ -23,11 +23,11 @@ resource "azurerm_cosmosdb_sql_database" "sql" {
 #  CosmosDB SQL Container API - Default is "false" 
 #---------------------------------------------------------
 resource "azurerm_cosmosdb_sql_container" "sql_container" {
-  count                  = var.create_cosmosdb_sql_container ? 1 : 0
+  for_each               = tomap(var.create_cosmosdb_sql_container ? var.cosmosdb_account : {})
   name                   = coalesce(var.custom_cosmosdb_sql_container_name, format("%s-sql-container", element([for n in azurerm_cosmosdb_account.db : n.name], 0)))
   resource_group_name    = local.resource_group_name
   account_name           = element([for n in azurerm_cosmosdb_account.db : n.name], 0)
-  database_name          = azurerm_cosmosdb_sql_database.sql.0.name
+  database_name          = element([for n in azurerm_cosmosdb_sql_database.sql : n.name], 0)
   partition_key_path     = var.partition_key_path
   partition_key_version  = var.partition_key_version
   throughput             = var.sql_container_autoscale_settings == null ? var.sql_container_throughput : null
@@ -49,26 +49,26 @@ resource "azurerm_cosmosdb_sql_container" "sql_container" {
   }
 
   dynamic "indexing_policy" {
-    for_each = var.indexing_policy != null ? [var.indexing_policy] : []
+    for_each = var.container_indexing_policy != null ? [var.container_indexing_policy] : []
     content {
       indexing_mode = var.indexing_policy.indexing_mode
 
       dynamic "included_path" {
-        for_each = lookup(var.indexing_policy, "included_path") != null ? [lookup(var.indexing_policy, "included_path")] : []
+        for_each = lookup(var.container_indexing_policy, "included_path") != null ? [lookup(var.container_indexing_policy, "included_path")] : []
         content {
           path = var.indexing_policy.included_path.path
         }
       }
 
       dynamic "excluded_path" {
-        for_each = lookup(var.indexing_policy, "excluded_path") != null ? [lookup(var.indexing_policy, "excluded_path")] : []
+        for_each = lookup(var.container_indexing_policy, "excluded_path") != null ? [lookup(var.container_indexing_policy, "excluded_path")] : []
         content {
           path = var.indexing_policy.excluded_path.path
         }
       }
 
       dynamic "composite_index" {
-        for_each = lookup(var.indexing_policy, "composite_index") != null ? [lookup(var.indexing_policy, "composite_index")] : []
+        for_each = lookup(var.container_indexing_policy, "composite_index") != null ? [lookup(var.container_indexing_policy, "composite_index")] : []
         content {
           index {
             path  = var.indexing_policy.composite_index.index.path
@@ -78,7 +78,7 @@ resource "azurerm_cosmosdb_sql_container" "sql_container" {
       }
 
       dynamic "spatial_index" {
-        for_each = lookup(var.indexing_policy, "spatial_index") != null ? [lookup(var.indexing_policy, "spatial_index")] : []
+        for_each = lookup(var.container_indexing_policy, "spatial_index") != null ? [lookup(var.container_indexing_policy, "spatial_index")] : []
         content {
           path = var.indexing_policy.spatial_index.path
         }

@@ -83,7 +83,7 @@ variable "unique_key" {
   default     = null
 }
 
-variable "indexing_policy" {
+variable "container_indexing_policy" {
   type = object({
     indexing_mode = optional(string)
     included_path = optional(object({
