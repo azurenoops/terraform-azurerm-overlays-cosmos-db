@@ -23,6 +23,8 @@ vendor/
 
 # Terraform log file
 terraform.log
+_*.log
+_*.plan
 
 ### https://raw.github.com/github/gitignore/abad92dac5a4306f72242dae3bca6e277bce3615/Global/Vim.gitignore
 
@@ -81,3 +83,5 @@ test/go.sum
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
 
+*.tfplan
+*.log

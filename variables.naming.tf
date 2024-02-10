@@ -28,3 +28,24 @@ variable "custom_resource_group_name" {
   type        = string
   default     = null
 }
+
+variable "custom_cosmosdb_name" {
+  description = "The name of the custom Cosmos DB to create. If not set, the name will be generated using the `org_name`, `workload_name`, `deploy_environment` and `environment` variables."
+  type        = string
+  default     = null  
+}
+
+variable "custom_cosmosdb_table_name" {
+  description = "The name of the custom Cosmos DB Table API. If not set, the name will be generated using the `org_name`, `workload_name`, `deploy_environment` and `environment` variables."
+  default     = null
+}
+
+variable "custom_cosmosdb_sql_container_name" {
+  description = "The name of the custom Cosmos DB sql container. If not set, the name will be generated using the `org_name`, `workload_name`, `deploy_environment` and `environment` variables."
+  default     = null
+}
+
+variable "custom_cosmosdb_sql_database_name" {
+  description = "The name of the custom Cosmos DB SQL database. If not set, the name will be generated using the `org_name`, `workload_name`, `deploy_environment` and `environment` variables."
+  default     = null
+}
